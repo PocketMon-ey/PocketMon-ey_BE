@@ -36,33 +36,34 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: loan
+  name: user
 spec:
   type: ClusterIP
   selector:
-    app: loan
+    app: user
   ports:
-    - name: loan
+    - name: user
       port: 10005
       targetPort: 10004
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: loan
+  name: user
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   ingressClassName: nginx
   rules:
-    - host: this4-loan.165.192.105.60.nip.io
+    - host: this4.165.192.105.60.nip.io
       http:
         paths:
           - path: /(.*)
             pathType: Prefix
             backend:
               service:
-                name: loan
+                name: user
                 port:
                   number: 10005
+git 
