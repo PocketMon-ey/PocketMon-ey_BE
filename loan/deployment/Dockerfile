@@ -1,9 +1,24 @@
-FROM openjdk:8-jre-alpine
-ENV APP_FILE app.jar
-ENV APP_HOME /usr/apps
-EXPOSE 10004
-COPY target/*.jar $APP_HOME/$APP_FILE
-WORKDIR $APP_HOME
-#ENTRYPOINT ["sh", "-c"]
-#CMD ["exec java -jar $APP_FILE"]
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","app.jar"]
+FROM openjdk:11-jre-slim
+
+ARG ARTIFACTORY_FILE
+ENV ARTIFACTORY_FILE ${ARTIFACTORY_FILE}
+ENV USERNAME docker  
+ENV ARTIFACTORY_HOME /home/${USERNAME}
+
+# DON'T change USERNAME
+# Add a docker user, make work dir
+RUN adduser --disabled-password --gecos "" ${USERNAME} && \
+  echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
+  mkdir -p ${ARTIFACTORY_HOME} && \
+  chown ${USERNAME}:${USERNAME} ${ARTIFACTORY_HOME}
+
+WORKDIR ${ARTIFACTORY_HOME}
+
+# Copy your jar to the container
+COPY ./target/${ARTIFACTORY_FILE} ${ARTIFACTORY_HOME}
+
+# Launch the artifactory as docker user
+ENTRYPOINT [ "sh", "-c" ]
+USER docker
+#CMD [ "java --Dspring.profiles.active=${PROFILE} -jar ${ARTIFACTORY_FILE}" ]
+CMD [ "java -jar ${ARTIFACTORY_FILE}" ]
