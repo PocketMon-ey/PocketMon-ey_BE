@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: user
+  name: loan
   labels:
-    app: user
+    app: loan
 spec:
   selector:
     matchLabels:
-      app: user
+      app: loan
   replicas: 1
   template:
     metadata:
-      name: user
+      name: loan
       labels:
-        app: user
+        app: loan
     spec:
       containers:
-        - name: user
-          image: docker.io/k03147/cicd-user
+        - name: loan
+          image: docker.io/k03147/cicd-loan
           imagePullPolicy: Always
           env:
             - name: PORT
