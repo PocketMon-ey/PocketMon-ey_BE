@@ -2,5 +2,5 @@ FROM node:alpine
 COPY package.json .
 RUN [ "npm", "install" ]
 COPY . .
-EXPOSE 10004
+EXPOSE 8080
 CMD [ "npm", "start" ]
