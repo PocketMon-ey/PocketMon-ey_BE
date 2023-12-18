@@ -13,17 +13,17 @@ import com.pocketmoney.loan.dao.LoanDAO;
 
 @Service
 public class LoanService {
-//	@Autowired
+	@Autowired
 	private LoanDAO loanDao;
 	
-	int id;
-	String reason;
-	int price;
-	int totalPrice;
-	String startDate;
-	String endDate;
-	int period;
-	int status;
+	// int id;
+	// String reason;
+	// int price;
+	// int totalPrice;
+	// String startDate;
+	// String endDate;
+	// int period;
+	// int status;
 	
 	public LoanListResponseDTO converter(List<LoanEntity> loanEntityList) {
 		return new LoanListResponseDTO(
