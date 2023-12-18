@@ -1,8 +1,12 @@
 package com.pocketmoney.loan.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class Loan {
 	public Loan(int id2, String reason2, int price2, int totalPrice2, String startDate2, String endDate2, int period2,
 			int status2) {
