@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: loan
-          image: docker.io/k03147/this4-loan
+          image: docker.io/k03147/loan
           imagePullPolicy: Always
           env:
             - name: PORT
@@ -45,24 +45,3 @@ spec:
     - name: loan
       port: 10005
       targetPort: 10004
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: loan
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-spec:
-  ingressClassName: nginx
-  rules:
-    - host: this4-loan.165.192.105.60.nip.io
-      http:
-        paths:
-          - path: /(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: loan
-                port:
-                  number: 10005
