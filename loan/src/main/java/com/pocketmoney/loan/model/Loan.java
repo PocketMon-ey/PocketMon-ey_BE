@@ -9,7 +9,7 @@ public class Loan {
 		this.id = id2;
 		this.reason = reason2;
 		this.price = price2;
-		this.totalPrice = totalPrice2;
+		this.totalmoney = totalPrice2;
 		this.startDate = startDate2;
 		this.endDate = endDate2;
 		this.period = period2;
@@ -18,7 +18,7 @@ public class Loan {
 	int id;
 	String reason;
 	int price;
-	int totalPrice;
+	int totalmoney;
 	String startDate;
 	String endDate;
 	int period;
