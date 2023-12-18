@@ -3,9 +3,13 @@ package com.pocketmoney.loan.entity;
 
 import java.util.Date;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class LoanEntity {
 	int id;
 	int childId;
