@@ -43,7 +43,7 @@ podTemplate(
 
 		try {
 			stage("Build Jar") {
-				container("maven") {
+				container("mvn") {
 					sh 'echo "Build jar under build/libs directory"'
 					sh "mvn clean package -DskipTests"
 				}
