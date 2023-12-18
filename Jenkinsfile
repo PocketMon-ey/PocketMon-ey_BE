@@ -42,6 +42,12 @@ podTemplate(
 		selector_val=props["selector_val"]
 
 		try {
+			stage("Build Jar") {
+				container("maven") {
+					sh 'echo "Build jar under build/libs directory"'
+					sh "mvn clean package -DskipTests"
+				}
+			}
 
 			stage("Build Container image") {
 				container("podman") {
