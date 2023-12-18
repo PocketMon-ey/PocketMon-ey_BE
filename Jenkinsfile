@@ -25,7 +25,7 @@ podTemplate(
 {
 	node(label) {
 		stage("Get Source") {
-			git branch: 'main', url: 'https://github.com/PocketMon-ey/PocketMon-ey_BE_loan.git'
+			git branch: 'main', url: 'https://github.com/PocketMon-ey/PocketMon-ey_BE_loan/'
         	} 
 
 		//-- Read pipeline.properties and setting variables
