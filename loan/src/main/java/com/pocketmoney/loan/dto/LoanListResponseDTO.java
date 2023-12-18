@@ -8,13 +8,12 @@ import lombok.Data;
 
 @Data
 public class LoanListResponseDTO {
+	private String message;
+	private List<Loan> loanList;
+	
 	public LoanListResponseDTO(List<Loan> b) {
 		// TODO Auto-generated constructor stub
 		this.message = "테스트";
 		this.loanList = b;
 	}
-	String message;
-	List<Loan> loanList;
-	
-	
 }
