@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: loan
-          image: docker.io/k03147/cicd-loan
+          image: docker.io/k03147/this4-loan
           imagePullPolicy: Always
           env:
             - name: PORT
