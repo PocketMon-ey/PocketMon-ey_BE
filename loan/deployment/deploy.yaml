@@ -66,8 +66,8 @@ metadata:
   namespace: this4
 type: Opaque
 data:
-  DB_USERNAME: am9hNQ==
-  DB_PASSWORD: UEBzc3cwcmQk
+  DB_USERNAME: this4
+  DB_PASSWORD: this44
 
 ---
 
