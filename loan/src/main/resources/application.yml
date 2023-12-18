@@ -8,9 +8,9 @@ spring:
     name: loan
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${DB_SERVER:165.192.105.57}:${DB_PORT:31001}/${DB_NAME:member}?useUnicode=true&characterEncoding=utf-8
-    username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:P@ssw0rd$}
+    url: jdbc:mysql://loan.${DB_SERVER:165.192.105.57}:${DB_PORT:30523}/${DB_NAME:this4}?useUnicode=true&characterEncoding=utf-8
+    username: ${DB_USERNAME:this4}
+    password: ${DB_PASSWORD:this44}
     hikari:
       connection-timeout: 5000
       validation-timeout: 1000
