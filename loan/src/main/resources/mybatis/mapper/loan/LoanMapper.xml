@@ -4,6 +4,6 @@
 <mapper namespace="com.pocketmoney.loan.dao.LoanDAO">
 	<select id="selectLoanList" resultType="com.pocketmoney.loan.entity.LoanEntity">
 		select *
-		from member
+		from loanDB.Loan;
 	</select>
 </mapper> 
