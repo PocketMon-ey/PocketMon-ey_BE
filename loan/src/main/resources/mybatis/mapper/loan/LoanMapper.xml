@@ -2,8 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pocketmoney.loan.dao.LoanDAO">
-	<select id="selectLoanList" resultType="com.pocketmoney.loan.entity.LoanEntity">
-		select *
-		from loanDB.Loan;
+	<select id="selectLoanList" parameterType="int" resultType="com.pocketmoney.loan.entity.LoanEntity">
+		SELECT *
+		FROM loanDB.Loan
+		WHERE status = #{status};
 	</select>
 </mapper> 
