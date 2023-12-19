@@ -24,12 +24,6 @@ public class LoanController {
 		return new ResponseEntity<LoanListResponseDTO>(result,HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "대출 상세조회")
-	@GetMapping(value = "/loan/{loanid}")
-	public ResponseEntity<Integer> loan(@PathVariable("loanid")int loanId) {
-		return new ResponseEntity<Integer>(loanId,HttpStatus.OK);
-	}
-	
 	@ApiOperation(value = "대출 등록")
 	@PostMapping(value = "/loan")
 	public ResponseEntity<Loan> addLoan(@RequestBody Loan loan) {
