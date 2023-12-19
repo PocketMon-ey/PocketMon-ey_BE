@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.pocketmoney.loan.dto.LoanListResponseDTO;
 import com.pocketmoney.loan.entity.LoanEntity;
 import com.pocketmoney.loan.model.Loan;
+import com.pocketmoney.loan.util.LoanConvertManager;
 import com.pocketmoney.loan.util.LoanConverter;
 import com.pocketmoney.loan.dao.LoanDAO;
 
@@ -16,8 +17,8 @@ import com.pocketmoney.loan.dao.LoanDAO;
 public class LoanService {
 	@Autowired
 	private LoanDAO loanDao;
+	private LoanConvertManager lcm = new LoanConvertManager();
 	
-	private LoanConverter lc;
 	int id;
 	String reason;
 	int price;
@@ -27,15 +28,6 @@ public class LoanService {
 	int period;
 	int status;
 	
-	public LoanListResponseDTO converter(List<LoanEntity> loanEntityList) {
-		return new LoanListResponseDTO(
-				loanEntityList.stream()
-				.map( loanEntity -> lc.LoanEntityToDTO(loanEntity))
-				.collect(Collectors.toList())
-				);
-				
-	}
-	
 	public LoanListResponseDTO fetchLoanList(int status) {
 		try {
 			System.out.println(status);
@@ -43,10 +35,13 @@ public class LoanService {
 			List<LoanEntity> loanList = loanDao.selectLoanList(status);
 			System.out.println(loanList);
 			System.out.println("asdaasd");
-			LoanListResponseDTO loanListRes = converter(loanList);
+			LoanListResponseDTO loanListRes = lcm.converter(loanList);
 			return loanListRes;
 		} catch(Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	
+	
 }
