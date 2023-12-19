@@ -1,4 +1,5 @@
 package com.pocketmoney.loan.controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +17,13 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 public class LoanController {
 	
+	@Autowired
+	private LoanService ls;
+	
 	@ApiOperation(value = "대출 리스트 조회")
 	@GetMapping(value = "/loan/list/{status}")
 	public ResponseEntity<LoanListResponseDTO> loanList(@PathVariable("status")int status) {
-		LoanService ls = new LoanService();
+		
 		LoanListResponseDTO result = ls.fetchLoanList(status);
 		return new ResponseEntity<LoanListResponseDTO>(result,HttpStatus.OK);
 	}
