@@ -32,7 +32,7 @@ public class LoanController {
 	private LoanService ls;
 	
 	@ApiOperation(value = "대출 리스트 조회")
-	@GetMapping(value = "list/{status}")
+	@GetMapping(value = "/loan/list/{status}")
 	public ResponseEntity<LoanListResponseDTO> loanList(@PathVariable("status")int status) {
 		try {
 			LoanListResponseDTO result = ls.fetchLoanList(status);
@@ -43,7 +43,7 @@ public class LoanController {
 	}
 	
 	@ApiOperation(value = "대출 등록")
-	@PostMapping(value = "/")
+	@PostMapping(value = "/loan")
 	public ResponseEntity<LoanEntity> addLoan(@RequestBody @Valid LoanPostRequestDTO req, BindingResult bindingResult) {
 		try {
 			System.out.println("ㅁㄴ");
@@ -67,7 +67,7 @@ public class LoanController {
 	}
 	
 	@ApiOperation(value = "대출 심사 승인")
-	@PostMapping(value = "approve")
+	@PostMapping(value = "/loan/approve")
 	public ResponseEntity<LoanEntity> approveLoan(@RequestBody ApproveRequestDTO req) {
 		try {
 			
@@ -80,7 +80,7 @@ public class LoanController {
 	}
 	
 	@ApiOperation(value = "대출 심사 거절")
-	@PostMapping(value = "/refuse")
+	@PostMapping(value = "/loan/refuse")
 	public ResponseEntity<LoanEntity> refuseLoan(@RequestBody RejectRequestDTO req) {
 		try {
 			LoanEntity le = ls.refuseLoan(req);
@@ -91,7 +91,7 @@ public class LoanController {
 	}
 	
 	@ApiOperation(value = "대출 납입")
-	@PostMapping(value = "/repayment")
+	@PostMapping(value = "/loan/repayment")
 	public ResponseEntity<LoanEntity> payLoanMoney(@RequestBody ApproveRequestDTO req) {
 		try {
 			LoanEntity le = ls.payLoanMoney(req);
@@ -102,7 +102,7 @@ public class LoanController {
 	}
 	
 	@ApiOperation(value = "대출 기간 목록 조회")
-	@PostMapping(value = "/tableList")
+	@PostMapping(value = "/loan/tableList")
 	public ResponseEntity<TableListResponseDTO> tableList(@RequestBody TableListRequestDTO req) {
 		try {
 			TableListResponseDTO dto = ls.tableList(req);
