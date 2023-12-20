@@ -2,8 +2,74 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pocketmoney.loan.dao.LoanDAO">
-	<select id="selectLoanList" resultType="com.pocketmoney.loan.entity.LoanEntity">
-		select *
-		from member
+	<select id="selectLoanList" parameterType="int" resultType="com.pocketmoney.loan.entity.LoanEntity">
+		SELECT *
+		FROM loanDB.Loan
+		WHERE status = #{status}
+		ORDER BY id DESC
 	</select>
+	
+	<select id="selectLoan" parameterType="int" resultType="com.pocketmoney.loan.entity.LoanEntity">
+		SELECT *
+		FROM loanDB.Loan
+		WHERE id = #{loanId}
+	</select>
+	
+	<insert id="insertLoan" parameterType="com.pocketmoney.loan.entity.LoanEntity">
+		INSERT INTO loanDB.Loan(
+			reason,
+			price,
+			totalPrice,
+			remainPrice,
+			interestRate,
+			monthlyRepaymentPrice,
+			period,
+			startDate,
+			endDate,
+			repaymentCnt,
+			status,
+			rejectReason,
+			childId
+		)
+		VALUES(
+			#{reason},
+			#{price},
+			#{totalPrice},
+			#{remainPrice},
+			#{interestRate},
+			#{monthlyRepaymentPrice},
+			#{period},
+			#{startDate},
+			#{endDate},
+			#{repaymentCnt},
+			#{status},
+			#{rejectReason},
+			#{childId}
+		)
+	</insert>
+	
+	<update id="updateLoan" parameterType="com.pocketmoney.loan.entity.LoanEntity">
+		UPDATE loanDB.Loan set
+			reason = #{reason},
+			price = #{price},
+			totalPrice = #{totalPrice},
+			remainPrice = #{remainPrice},
+			interestRate = #{interestRate},
+			monthlyRepaymentPrice = #{monthlyRepaymentPrice},
+			period = #{period},
+			startDate = #{startDate},
+			endDate = #{endDate},
+			repaymentCnt = #{repaymentCnt},
+			status = #{status},
+			rejectReason = #{rejectReason},
+			childId = #{childId}
+		WHERE loanId = #{loanId}
+	</update>
+	
+	
+	<delete id="deleteLoan" parameterType="int">
+		DELETE FROM loanDB.Loan
+		WHERE id = #{loanId} 
+	</delete>
+	
 </mapper> 

@@ -8,7 +8,7 @@ spring:
     name: loan
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://loan.${DB_SERVER:165.192.105.57}:${DB_PORT:30523}/${DB_NAME:this4}?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://${DB_SERVER:165.192.105.57}:${DB_PORT:30523}/${DB_NAME:loanDB}?useUnicode=true&characterEncoding=utf-8
     username: ${DB_USERNAME:this4}
     password: ${DB_PASSWORD:this44}
     hikari:
