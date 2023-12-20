@@ -32,7 +32,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .apis(RequestHandlerSelectors
                         .basePackage("com.pocketmoney.loan.controller"))
                 .paths(PathSelectors.ant("/**"))
-                .build()
-                .host("http://pocketmoney.165.192.105.60.nip.io/loan");
+                .build();
+//                .host("http://pocketmoney.165.192.105.60.nip.io/loan");
     }
 }
