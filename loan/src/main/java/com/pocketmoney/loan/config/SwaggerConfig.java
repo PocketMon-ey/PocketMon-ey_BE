@@ -19,7 +19,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
         return new ApiInfoBuilder()
                 .title("LOAN")
-                .description("김지훈짱")
+                .description("예외처리 외 다 됨 \n 예외처리 학습 중 \n 안되면 연락 ")
                 .build();
     }
 
@@ -32,6 +32,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .apis(RequestHandlerSelectors
                         .basePackage("com.pocketmoney.loan.controller"))
                 .paths(PathSelectors.ant("/**"))
-                .build();
+                .build()
+                .host("http://pocketmoney.165.192.105.60.nip.io/loan");
     }
 }
