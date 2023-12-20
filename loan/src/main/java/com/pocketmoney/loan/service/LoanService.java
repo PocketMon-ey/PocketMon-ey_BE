@@ -1,13 +1,14 @@
 package com.pocketmoney.loan.service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pocketmoney.loan.dto.LoanListResponseDTO;
 import com.pocketmoney.loan.dto.LoanPostRequestDTO;
@@ -21,6 +22,7 @@ import com.pocketmoney.loan.controller.ApproveRequestDTO;
 import com.pocketmoney.loan.dao.LoanDAO;
 
 @Service
+@Transactional
 public class LoanService {
 	@Autowired
 	private LoanDAO loanDao;
@@ -37,6 +39,7 @@ public class LoanService {
 			throw new RuntimeException(e);
 		}
 	}
+	
 	
 	public LoanEntity addLoan(LoanPostRequestDTO req) {
 		try { 
@@ -58,23 +61,40 @@ public class LoanService {
 					null,
 					req.getChildId()
 					);
+			
 			loanDao.insertLoan(loan);
-			LoanEntity result = loanDao.selectLoanList(0).get(0);
-			return result;
+			return loanDao.selectLoanList(0).get(0);
 		} catch(Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
-	
+	 
 	public LoanEntity approveLoan(int loanId) {
 		try {
 			// TODO 날짜 , 납입일 
-			
 			LoanEntity le = loanDao.selectLoan(loanId);
-			le.setStatus(1);
-			LocalDate now = LocalDate.now();
-			loanDao.updateLoan(le);
-			return le;
+			
+	        LocalDate currentDate = LocalDate.now();
+
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd");
+	        String startDateString = currentDate.format(formatter);
+
+	        int monthsToAdd = le.getPeriod();
+	        LocalDate endDate = currentDate.plusMonths(monthsToAdd);
+
+	     
+	        int lastDayOfMonth = endDate.lengthOfMonth();
+	        int dayOfMonth = Math.min(currentDate.getDayOfMonth(), lastDayOfMonth);
+	        
+	        endDate = endDate.withDayOfMonth(dayOfMonth);
+
+	        String endDateString = endDate.format(formatter);
+
+	        le.setStartDate(startDateString);
+	        le.setEndDate(endDateString);
+	        le.setStatus(1);
+	        loanDao.updateLoan(le);
+			return loanDao.selectLoan(le.getId());
 		} catch(Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -89,7 +109,7 @@ public class LoanService {
 			le.setStatus(2);
 			le.setReason(reason);
 			loanDao.updateLoan(le);
-			return loanDao.selectLoan(loanId);
+			return loanDao.selectLoan(le.getId());
 		} catch(Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -101,7 +121,7 @@ public class LoanService {
 			LoanEntity le = loanDao.selectLoan(loanId);
 			le.repay();
 			loanDao.updateLoan(le);
-			return le;
+			return loanDao.selectLoan(le.getId());
 		} catch(Exception e) {
 			throw new RuntimeException(e);
 		}
