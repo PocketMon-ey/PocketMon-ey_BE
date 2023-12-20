@@ -14,7 +14,6 @@ import com.pocketmoney.loan.dto.RejectRequestDTO;
 import com.pocketmoney.loan.dto.TableListRequestDTO;
 import com.pocketmoney.loan.dto.TableListResponseDTO;
 import com.pocketmoney.loan.entity.LoanEntity;
-import com.pocketmoney.loan.model.Loan;
 import com.pocketmoney.loan.service.LoanService;
 
 import io.swagger.annotations.ApiOperation;
@@ -26,7 +25,7 @@ public class LoanController {
 	private LoanService ls;
 	
 	@ApiOperation(value = "대출 리스트 조회")
-	@GetMapping(value = "/loan/list/{status}")
+	@GetMapping(value = "list/{status}")
 	public ResponseEntity<LoanListResponseDTO> loanList(@PathVariable("status")int status) {
 		try {
 			LoanListResponseDTO result = ls.fetchLoanList(status);
@@ -37,7 +36,7 @@ public class LoanController {
 	}
 	
 	@ApiOperation(value = "대출 등록")
-	@PostMapping(value = "/loan")
+	@PostMapping(value = "/")
 	public ResponseEntity<LoanEntity> addLoan(@RequestBody LoanPostRequestDTO req) {
 		try {
 			LoanEntity result = ls.addLoan(req);
@@ -49,7 +48,7 @@ public class LoanController {
 	}
 	
 	@ApiOperation(value = "대출 심사 승인")
-	@PostMapping(value = "/loan/approve")
+	@PostMapping(value = "approve")
 	public ResponseEntity<LoanEntity> approveLoan(@RequestBody ApproveRequestDTO req) {
 		try {
 			
@@ -62,7 +61,7 @@ public class LoanController {
 	}
 	
 	@ApiOperation(value = "대출 심사 거절")
-	@PostMapping(value = "/loan/refuse")
+	@PostMapping(value = "/refuse")
 	public ResponseEntity<LoanEntity> refuseLoan(@RequestBody RejectRequestDTO req) {
 		try {
 			LoanEntity le = ls.refuseLoan(req);
@@ -73,7 +72,7 @@ public class LoanController {
 	}
 	
 	@ApiOperation(value = "대출 납입")
-	@PostMapping(value = "/loan/repayment")
+	@PostMapping(value = "/repayment")
 	public ResponseEntity<LoanEntity> payLoanMoney(@RequestBody ApproveRequestDTO req) {
 		try {
 			LoanEntity le = ls.payLoanMoney(req);
@@ -84,11 +83,11 @@ public class LoanController {
 	}
 	
 	@ApiOperation(value = "대출 기간 목록 조회")
-	@PostMapping(value = "/loan/tableList")
+	@PostMapping(value = "/tableList")
 	public ResponseEntity<TableListResponseDTO> tableList(@RequestBody TableListRequestDTO req) {
 		try {
-			TableListResponseDTO tmp = new TableListResponseDTO(null);
-			return new ResponseEntity<TableListResponseDTO>(tmp,HttpStatus.OK);
+			TableListResponseDTO dto = ls.tableList(req);
+			return new ResponseEntity<TableListResponseDTO>(dto,HttpStatus.OK);
 		} catch(Exception e) {
 			throw new RuntimeException(e);
 		}
