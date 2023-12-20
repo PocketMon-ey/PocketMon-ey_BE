@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pocketmoney.loan.dto.ApproveRequestDTO;
 import com.pocketmoney.loan.dto.LoanListResponseDTO;
 import com.pocketmoney.loan.dto.LoanPostRequestDTO;
 import com.pocketmoney.loan.dto.RejectRequestDTO;
@@ -18,7 +19,6 @@ import com.pocketmoney.loan.dto.TableListResponseDTO;
 import com.pocketmoney.loan.entity.LoanEntity;
 import com.pocketmoney.loan.model.LoanTable;
 import com.pocketmoney.loan.util.LoanConverter;
-import com.pocketmoney.loan.controller.ApproveRequestDTO;
 import com.pocketmoney.loan.dao.LoanDAO;
 
 @Service

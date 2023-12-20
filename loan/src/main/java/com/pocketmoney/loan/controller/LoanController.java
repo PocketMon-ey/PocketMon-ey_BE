@@ -1,13 +1,20 @@
 package com.pocketmoney.loan.controller;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pocketmoney.loan.dto.ApproveRequestDTO;
 import com.pocketmoney.loan.dto.LoanListResponseDTO;
 import com.pocketmoney.loan.dto.LoanPostRequestDTO;
 import com.pocketmoney.loan.dto.RejectRequestDTO;
@@ -37,12 +44,24 @@ public class LoanController {
 	
 	@ApiOperation(value = "대출 등록")
 	@PostMapping(value = "/")
-	public ResponseEntity<LoanEntity> addLoan(@RequestBody LoanPostRequestDTO req) {
+	public ResponseEntity<LoanEntity> addLoan(@RequestBody @Valid LoanPostRequestDTO req, BindingResult bindingResult) {
 		try {
+			System.out.println("ㅁㄴ");
+			
+			if (bindingResult.hasErrors()) {
+			       List<ObjectError> errorList = bindingResult.getAllErrors();
+			        for (ObjectError error : errorList) {
+			        	System.out.println("asd");
+			        }
+//			        	return new ResponseEntity<LoanEntity>(null,HttpStatus.BAD_REQUEST);
+			        
+			}
 			LoanEntity result = ls.addLoan(req);
 			return new ResponseEntity<LoanEntity>(result,HttpStatus.OK);
 		} catch(Exception e) {
-			throw new RuntimeException(e);
+//			throw new RuntimeException(e);
+			LoanEntity a = null;
+			return new ResponseEntity<LoanEntity>(a,HttpStatus.OK);
 		}
 		
 	}

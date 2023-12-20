@@ -68,9 +68,7 @@ type: Opaque
 data:
   DB_USERNAME: dGhpczQK
   DB_PASSWORD: dGhpczQ0Cg==
-
 ---
-
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
