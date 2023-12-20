@@ -79,10 +79,10 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: pocketmoney.165.192.105.60.nip.io/loan
+    - host: pocketmoney.165.192.105.60.nip.io
       http:
         paths:
-          - path: /(.*)
+          - path: /loan/(.*)
             pathType: Prefix
             backend:
               service:
