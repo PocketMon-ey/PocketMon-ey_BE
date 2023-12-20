@@ -12,7 +12,7 @@
 	<select id="selectLoan" parameterType="int" resultType="com.pocketmoney.loan.entity.LoanEntity">
 		SELECT *
 		FROM loanDB.Loan
-		WHERE id = #{loanId}
+		WHERE id = #{id}
 	</select>
 	
 	<insert id="insertLoan" parameterType="com.pocketmoney.loan.entity.LoanEntity">
@@ -63,13 +63,12 @@
 			status = #{status},
 			rejectReason = #{rejectReason},
 			childId = #{childId}
-		WHERE loanId = #{loanId}
+		WHERE id = #{id}
 	</update>
-	
 	
 	<delete id="deleteLoan" parameterType="int">
 		DELETE FROM loanDB.Loan
-		WHERE id = #{loanId} 
+		WHERE id = #{id} 
 	</delete>
 	
 </mapper> 
