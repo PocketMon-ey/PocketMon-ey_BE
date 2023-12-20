@@ -10,7 +10,7 @@ import com.pocketmoney.loan.entity.LoanEntity;
 public interface LoanDAO {
 	List<LoanEntity> selectLoanList(int status) throws Exception;
 	LoanEntity selectLoan(int loanId) throws Exception;
-	int insertLoan(LoanEntity loan) throws Exception;
-	int updateLoan(LoanEntity loan) throws Exception;
-	int deleteLoan(int loanId) throws Exception;
+	void insertLoan(LoanEntity loan) throws Exception;
+	void updateLoan(LoanEntity loan) throws Exception;
+	void deleteLoan(int loanId) throws Exception;
 }

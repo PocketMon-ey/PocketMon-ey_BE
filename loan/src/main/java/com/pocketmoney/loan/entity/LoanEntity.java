@@ -3,17 +3,32 @@ package com.pocketmoney.loan.entity;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class LoanEntity {
-	public LoanEntity(int id, String reason, int price, int totalPrice, int remainPrice, Double interestRate,
-			int monthlyRepaymentPrice, int period, String startDate, String endDate, int repaymentCnt, int status,
-			String rejectReason, Date createDate, Date updateDate, int childId) {
+	public LoanEntity(
+			int id,
+			String reason,
+			int price, 
+			int totalPrice,
+			int remainPrice,
+			Double interestRate,
+			int monthlyRepaymentPrice,
+			int period,
+			String startDate,
+			String endDate,
+			int repaymentCnt,
+			int status,
+			String rejectReason,
+			Date createDate,
+			Date updateDate,
+			int childId
+			) {
 		super();
 		this.id = id;
 		this.reason = reason;
@@ -32,12 +47,13 @@ public class LoanEntity {
 		this.updateDate = updateDate;
 		this.childId = childId;
 	}
+	
 	int id;
 	String reason; // 대출 사유 
 	int price; // 총 대출 금액 
-	int totalPrice; // 갚을 금액 
-	int remainPrice;
-	Double interestRate;
+	int totalPrice; // 총 납입 금액 
+	int remainPrice; // 남은 금액 
+	double interestRate;
 	int monthlyRepaymentPrice;
 	int period;
 	String startDate;
@@ -49,5 +65,14 @@ public class LoanEntity {
 	Date updateDate;
 	int childId;
 	
-	
+	public Boolean repay() {
+		this.repaymentCnt += 1;
+		if(this.repaymentCnt == period) {
+			this.remainPrice = 0;
+			this.status = 2;
+			return true;
+		}
+		this.totalPrice -= this.monthlyRepaymentPrice;
+		return false;
+	}
 }

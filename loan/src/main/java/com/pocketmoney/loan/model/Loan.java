@@ -8,6 +8,16 @@ import lombok.extern.java.Log;
 @Getter
 @Setter
 public class Loan {
+
+	int id;
+	String reason;
+	int price;
+	int totalmoney;
+	String startDate;
+	String endDate;
+	int period;
+	int status;
+	
 	public Loan(int id2, String reason2, int price2, int totalPrice2, String startDate2, String endDate2, int period2,
 			int status2) {
 		this.id = id2;
@@ -20,12 +30,5 @@ public class Loan {
 		this.status = status2;
 		
 	}
-	int id;
-	String reason;
-	int price;
-	int totalmoney;
-	String startDate;
-	String endDate;
-	int period;
-	int status;
+
 }
