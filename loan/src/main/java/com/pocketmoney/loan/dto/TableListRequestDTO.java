@@ -11,10 +11,16 @@ public class TableListRequestDTO {
 	
 	
 	public int getTotalPrice(int month) {
-		return price + price * loanInterest / month;
+		double loanRate = (double)loanInterest / 100;
+		double monthRate = (double)month / 12;
+		System.out.println(loanRate);
+		System.out.println(monthRate);
+		int result = (int)(price + price * loanRate * monthRate) / month * month;
+		return result;
 	}
 	
 	public int getPricePerMonth(int month) {
+		System.out.println(getTotalPrice(month));
 		return getTotalPrice(month) / month;
 	}
 	
