@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -69,7 +70,7 @@ public class LoanController {
 	}
 	
 	@ApiOperation(value = "대출 심사 승인")
-	@PostMapping(value = "/loan/approve")
+	@PutMapping(value = "/loan/approve")
 	public ResponseEntity<LoanEntity> approveLoan(@RequestBody ApproveRequestDTO req) {
 		try {
 			
@@ -82,7 +83,7 @@ public class LoanController {
 	}
 	
 	@ApiOperation(value = "대출 심사 거절")
-	@PostMapping(value = "/loan/refuse")
+	@PutMapping(value = "/loan/refuse")
 	public ResponseEntity<LoanEntity> refuseLoan(@RequestBody RejectRequestDTO req) {
 		try {
 			LoanEntity le = ls.refuseLoan(req);
@@ -93,7 +94,7 @@ public class LoanController {
 	}
 	
 	@ApiOperation(value = "대출 납입")
-	@PostMapping(value = "/loan/repayment")
+	@PutMapping(value = "/loan/repayment")
 	public ResponseEntity<LoanEntity> payLoanMoney(@RequestBody ApproveRequestDTO req) {
 		try {
 			LoanEntity le = ls.payLoanMoney(req);

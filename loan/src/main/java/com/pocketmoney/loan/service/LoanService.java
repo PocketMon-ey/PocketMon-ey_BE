@@ -19,6 +19,7 @@ import com.pocketmoney.loan.dto.TableListResponseDTO;
 import com.pocketmoney.loan.entity.LoanEntity;
 import com.pocketmoney.loan.model.LoanTable;
 import com.pocketmoney.loan.util.LoanConverter;
+import com.pocketmoney.loan.util.WebClientService;
 import com.pocketmoney.loan.dao.LoanDAO;
 
 @Service
@@ -29,7 +30,7 @@ public class LoanService {
 	@Autowired
 	private LoanConverter lc;
 	
-	
+	@Transactional
 	public LoanListResponseDTO fetchLoanList(int status) {
 		try {
 			List<LoanEntity> loanList = loanDao.selectLoanList(status);
@@ -40,7 +41,7 @@ public class LoanService {
 		}
 	}
 	
-	
+	@Transactional
 	public LoanEntity addLoan(LoanPostRequestDTO req) {
 		try { 
 			LoanEntity loan = new LoanEntity(
@@ -69,14 +70,17 @@ public class LoanService {
 		}
 	}
 	 
+	@Transactional
 	public LoanEntity approveLoan(int loanId) {
 		try {
-			// TODO 날짜 , 납입일 
-			LoanEntity le = loanDao.selectLoan(loanId);
+			WebClientService wcs = new WebClientService();
 			
+			LoanEntity le = loanDao.selectLoan(loanId);
+			int parentId = wcs.getParentId(le.getChildId());
+			wcs.sendMoney(parentId, le.getChildId(), le.getPrice());
 	        LocalDate currentDate = LocalDate.now();
 
-	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd");
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy.MM.dd");
 	        String startDateString = currentDate.format(formatter);
 
 	        int monthsToAdd = le.getPeriod();
@@ -100,7 +104,7 @@ public class LoanService {
 		}
 	}
 	
-	
+	@Transactional
 	public LoanEntity refuseLoan(RejectRequestDTO req) {
 		try {
 			int loanId = req.getLoanId();
@@ -115,11 +119,18 @@ public class LoanService {
 		}
 	}
 
+	@Transactional
 	public LoanEntity payLoanMoney(ApproveRequestDTO req) {
 		try {
 			int loanId = req.getLoanId();
 			LoanEntity le = loanDao.selectLoan(loanId);
-			le.repay();
+			
+			if(le.repay()) {
+				return loanDao.selectLoan(le.getId());
+			}
+			WebClientService wcs = new WebClientService();
+			int parentId = wcs.getParentId(le.getChildId());
+			wcs.sendMoney(le.getChildId(), parentId, le.getMonthlyRepaymentPrice());
 			loanDao.updateLoan(le);
 			return loanDao.selectLoan(le.getId());
 		} catch(Exception e) {
@@ -127,6 +138,7 @@ public class LoanService {
 		}
 	}
 	
+	@Transactional
 	public TableListResponseDTO tableList(TableListRequestDTO req) {
 		try {
 			List<Integer> months = new ArrayList<>();

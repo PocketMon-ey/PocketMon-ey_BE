@@ -19,7 +19,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
         return new ApiInfoBuilder()
                 .title("LOAN")
-                .description("예외처리 외 다 됨 \n request에 아이id, 부모id 논의해야함 안되면 연락 ")
+                .description("예외처리 외 다 됨 \n request에 아이id 논의해야함 안되면 연락 ")
                 .build();
     }
 

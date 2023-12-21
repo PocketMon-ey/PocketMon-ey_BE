@@ -8,8 +8,6 @@ import com.pocketmoney.loan.dto.RemittanceRequestDTO;
 
 public class WebClientService {
     public void sendMoney(int fromId, int toId, int price) {
-      
-
         // webClient 기본 설정
         WebClient webClient = WebClient
                         .builder()
@@ -17,7 +15,6 @@ public class WebClientService {
                         .build();
         RemittanceRequestDTO req = new RemittanceRequestDTO(fromId, toId, price);
         try {
-        	List<Object> response =
                     webClient
                             .post()
                             .uri(uriBuilder ->
@@ -29,12 +26,37 @@ public class WebClientService {
                             .retrieve()
                             .bodyToMono(List.class)
                             .block();
-        	 System.out.println(response.toString());
+        	 
         } catch(Exception e) {
         	throw new RuntimeException(e);
         }
-        // api 요청
-        
-       
+    }
+    
+    public int getParentId(int childId) {
+      
+
+        // webClient 기본 설정
+        WebClient webClient = WebClient
+                        .builder()
+                        .baseUrl("http://pocketmoney.165.192.105.60.nip.io")
+                        .build();
+        try {
+        	int response =
+                    webClient
+                            .get()
+                            .uri(uriBuilder ->
+                                    uriBuilder
+                                            .path("/user/carer/" + String.valueOf(childId))
+                                            .build())
+                            .retrieve()
+                            .bodyToMono(int.class)
+                            .block();
+        	System.out.println("\n\n\n");
+        	System.out.println(response);
+        	System.out.println("\n\n\n");
+        	 return response;
+        } catch(Exception e) {
+        	throw new RuntimeException(e);
+        }
     }
 }
