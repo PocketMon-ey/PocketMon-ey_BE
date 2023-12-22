@@ -45,6 +45,17 @@ public class LoanController {
 		}
 	}
 	
+	@ApiOperation(value = "대출 상세 조회")
+	@GetMapping(value = "/loan/{loanId}")
+	public ResponseEntity<LoanEntity> loan(@PathVariable("loanId")int status) {
+		try {
+			LoanEntity result = ls.fetchLoan(status);
+			return new ResponseEntity<LoanEntity>(result,HttpStatus.OK);	
+		} catch(Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	@ApiOperation(value = "대출 등록")
 	@PostMapping(value = "/loan")
 	public ResponseEntity<LoanEntity> addLoan(@RequestBody @Valid LoanPostRequestDTO req, BindingResult bindingResult) {

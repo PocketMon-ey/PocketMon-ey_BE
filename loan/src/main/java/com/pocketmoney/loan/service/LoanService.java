@@ -42,6 +42,16 @@ public class LoanService {
 	}
 	
 	@Transactional
+	public LoanEntity fetchLoan(int loanId) {
+		try {
+			LoanEntity loan = loanDao.selectLoan(loanId);
+			return loan;
+		} catch(Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	@Transactional
 	public LoanEntity addLoan(LoanPostRequestDTO req) {
 		try { 
 			LoanEntity loan = new LoanEntity(
