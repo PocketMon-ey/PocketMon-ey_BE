@@ -121,7 +121,7 @@ public class LoanService {
 			String reason = req.getRejectionReason();
 			LoanEntity le = loanDao.selectLoan(loanId);
 			le.setStatus(2);
-			le.setReason(reason);
+			le.setRejectReason(reason);
 			loanDao.updateLoan(le);
 			return loanDao.selectLoan(le.getId());
 		} catch(Exception e) {
