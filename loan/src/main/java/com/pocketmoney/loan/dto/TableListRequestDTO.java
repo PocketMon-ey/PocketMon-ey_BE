@@ -7,13 +7,13 @@ import lombok.Setter;
 @Setter
 public class TableListRequestDTO {
 	int price;
-	int loanInterest;
+	double loanInterest;
 	
 	
 	public int getTotalPrice(int month) {
-		double loanRate = (double)loanInterest / 100;
+		double loanRate = (double)loanInterest / 100.0;
 		double monthRate = (double)month / 12;
-		int result = (int)(price + price * loanRate * monthRate) / month * month;
+		int result = (int)Math.ceil((price + price * loanRate * monthRate) / month) * month;
 		return result;
 	}
 	
