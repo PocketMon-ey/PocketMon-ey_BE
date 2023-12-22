@@ -136,6 +136,7 @@ public class LoanService {
 			LoanEntity le = loanDao.selectLoan(loanId);
 			
 			if(le.repay()) {
+				loanDao.updateLoan(le);
 				return loanDao.selectLoan(le.getId());
 			}
 			WebClientService wcs = new WebClientService();
