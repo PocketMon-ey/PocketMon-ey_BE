@@ -26,12 +26,9 @@ public class WebClientService {
                             .retrieve()
                             .bodyToMono(List.class)
                             .block();
-                    System.out.println("a");
-                    System.out.println(fromId);
-                    System.out.println("b");
-                    System.out.println(toId);
-                    System.out.println("c");
-                    System.out.println(price);
+                    System.out.println(fromId + "가 ");
+                    System.out.println(toId + "에");
+                    System.out.println(price + "원을 보내려 함 ");
         } catch(Exception e) {
         	throw new RuntimeException(e);
         }
