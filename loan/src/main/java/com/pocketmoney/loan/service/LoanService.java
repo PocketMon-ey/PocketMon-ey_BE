@@ -86,8 +86,7 @@ public class LoanService {
 			WebClientService wcs = new WebClientService();
 			
 			LoanEntity le = loanDao.selectLoan(loanId);
-			int parentId = wcs.getParentId(le.getChildId());
-			wcs.sendMoney(parentId, le.getChildId(), le.getPrice());
+
 	        LocalDate currentDate = LocalDate.now();
 
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy.MM.dd");
@@ -107,6 +106,8 @@ public class LoanService {
 	        le.setStartDate(startDateString);
 	        le.setEndDate(endDateString);
 	        le.setStatus(1);
+			int parentId = wcs.getParentId(le.getChildId());
+			wcs.sendMoney(parentId, le.getChildId(), le.getPrice());
 	        loanDao.updateLoan(le);
 			return loanDao.selectLoan(le.getId());
 		} catch(Exception e) {
@@ -136,13 +137,14 @@ public class LoanService {
 			LoanEntity le = loanDao.selectLoan(loanId);
 			
 			if(le.repay()) {
-				loanDao.updateLoan(le);
 				return loanDao.selectLoan(le.getId());
 			}
+			
 			WebClientService wcs = new WebClientService();
 			int parentId = wcs.getParentId(le.getChildId());
 			wcs.sendMoney(le.getChildId(), parentId, le.getMonthlyRepaymentPrice());
 			loanDao.updateLoan(le);
+
 			return loanDao.selectLoan(le.getId());
 		} catch(Exception e) {
 			throw new RuntimeException(e);

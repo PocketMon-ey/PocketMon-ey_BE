@@ -26,7 +26,12 @@ public class WebClientService {
                             .retrieve()
                             .bodyToMono(List.class)
                             .block();
-        	 
+                    System.out.println("a");
+                    System.out.println(fromId);
+                    System.out.println("b");
+                    System.out.println(toId);
+                    System.out.println("c");
+                    System.out.println(price);
         } catch(Exception e) {
         	throw new RuntimeException(e);
         }
@@ -51,9 +56,7 @@ public class WebClientService {
                             .retrieve()
                             .bodyToMono(int.class)
                             .block();
-        	System.out.println("\n\n\n");
         	System.out.println(response);
-        	System.out.println("\n\n\n");
         	 return response;
         } catch(Exception e) {
         	throw new RuntimeException(e);
