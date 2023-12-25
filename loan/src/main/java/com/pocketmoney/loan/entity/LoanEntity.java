@@ -64,7 +64,7 @@ public class LoanEntity {
 	
 	public Boolean repay() {
 		this.repaymentCnt += 1;
-		if(this.repaymentCnt > period) {
+		if(this.repaymentCnt >= period) {
 			this.remainPrice = 0;
 			this.status = 2;
 			return true;
