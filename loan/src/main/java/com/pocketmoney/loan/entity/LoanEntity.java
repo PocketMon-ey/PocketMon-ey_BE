@@ -64,12 +64,13 @@ public class LoanEntity {
 	
 	public Boolean repay() {
 		this.repaymentCnt += 1;
-		if(this.repaymentCnt >= period) {
-			this.remainPrice = 0;
-			this.status = 2;
+		if(this.repaymentCnt > period) {
 			return true;
 		}
 		this.remainPrice -= this.monthlyRepaymentPrice;
+		if(this.remainPrice == 0) {
+			this.status = 2;
+		}
 		return false;
 	}
 }
